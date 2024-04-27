@@ -4,6 +4,7 @@ import cv2
 
 
 #plant care system
+
 class PCS:
     def __init__(self):
         # 創建主窗口
@@ -11,7 +12,7 @@ class PCS:
         self.root.title("植物照顧系統")
         self.root.geometry("900x700")
         self.root.resizable(True, True)
-        self.root.iconbitmap("unicorn.ico")  # 設置窗口圖標
+        self.root.iconbitmap("plant.ico")  # 設置窗口圖標
 
         # 創建一個標籤
         self.label = tk.Label(self.root, text="Hello, World!")
@@ -29,7 +30,7 @@ class PCS:
         self.create_menu_bar()
 
         # 創建圖片
-        # self.create_img()
+        self.create_img()
 
         #顯示植物畫面
         self.video_text = tk.Label(self.root, text="植物畫面")
@@ -96,7 +97,6 @@ class PCS:
         self.root.mainloop()
 
 
-# 創建 GUI 實例並啟動應用程式
 if __name__ == "__main__":
     app = PCS()
     app.run()
