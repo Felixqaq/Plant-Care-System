@@ -15,7 +15,7 @@ class SensorDatatPlot:
 
 
         # 创建Matplotlib图表
-        self.fig = Figure(figsize=(8, 6), dpi=100)
+        self.fig = Figure(figsize=(5, 3), dpi=100)
 
         # 温度子图
         self.ax_temp = self.fig.add_subplot(211)
@@ -39,13 +39,11 @@ class SensorDatatPlot:
         
         # 创建画布并嵌入到Tkinter窗口中
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.master)
-        self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-        self.canvas.get_tk_widget().config(yscrollcommand=self.scrollbar.set)
+        self.canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=1)
         
     def update_data(self, temp_value, hum_value):
         # 模拟实时数据更新
         new_time = datetime.now()
-        
         self.temperature_data.append(temp_value)
         self.humidity_data.append(hum_value)
         self.time_data.append(new_time)

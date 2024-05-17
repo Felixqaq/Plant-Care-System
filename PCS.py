@@ -3,25 +3,24 @@ from PIL import Image, ImageTk
 import cv2
 import random
 from DefaultSensor import DefaultSensor
-from SensorDatatPlot import SensorDatatPlot
+from SensorDataPlot import SensorDatatPlot
 
 UPDATE_TIME = 1000
 VIDEO_UPDATE_TIME = 10
+IMG_SIZE = (50, 50)
+VIDEO_SIZE = (200, 200)
+
 class PCS:
     def __init__(self):
         # 創建主窗口
         self.root = tk.Tk()
         self.root.title("植物照顧系統")
-        self.root.geometry("900x700")
-        self.root.resizable(False, False)
+        self.root.geometry("900x1200")
+        self.root.resizable(True, True)
         self.root.iconbitmap("plant.ico") # 設置UI圖標
 
-        # 创建一个垂直滚动条
-        self.scrollbar = tk.Scrollbar(self.root, command=self.on_scroll())
-        self.scrollbar.pack(side="right", fill="y")
         
         self.sensor = DefaultSensor()
-        self.data_plot = SensorDatatPlot(self.root)
 
         self.create_humidity_label()
         self.create_temperature_label()
@@ -30,8 +29,6 @@ class PCS:
         #self.button = tk.Button(self.root, text="刷新", command=self.refresh)
         #self.button.pack()
 
-        
-        
         self.create_menu_bar()
 
         #顯示植物畫面
@@ -44,7 +41,7 @@ class PCS:
 
         self.cap = cv2.VideoCapture(0)
 
-        
+        self.data_plot = SensorDatatPlot(self.root)
         
         # 開始更新畫面
         if not self.update_frame():
@@ -82,6 +79,7 @@ class PCS:
         if ret:
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             img = Image.fromarray(frame_rgb)
+            img.resize(VIDEO_SIZE)
             imgtk = ImageTk.PhotoImage(image=img)
             self.video_label.imgtk = imgtk
             self.video_label.configure(image=imgtk)
@@ -93,22 +91,20 @@ class PCS:
             return False
         
     def create_humidity_label(self):
-        self.humidity_label = tk.Label(self.root, text="濕度")
-        self.humidity_label.pack()
-        self.humidity_label.config(yscrollcommand=self.scrollbar.set)
+        image = Image.open('hum.png').resize(IMG_SIZE)
+        self.humidity_image = ImageTk.PhotoImage(image)
+        self.humidity_label = tk.Label(self.root, image=self.humidity_image)
+        self.humidity_label.pack(side=tk.TOP)
         self.humidity_data = tk.Label(self.root, text="{}％RH".format(self.sensor.read_moisture()))
-        self.humidity_data.pack()
-        self.humidity_data.config(yscrollcommand=self.scrollbar.set)
+        self.humidity_data.pack(side=tk.TOP)
 
     def create_temperature_label(self):
-        self.temperature_label = tk.Label(self.root, text="溫度")
-        self.temperature_label.pack()
+        image = Image.open('temp.png').resize(IMG_SIZE)
+        self.temperature_image = ImageTk.PhotoImage(image)
+        self.temperature_label = tk.Label(self.root, image=self.temperature_image)
+        self.temperature_label.pack(side=tk.TOP)
         self.temperature_data = tk.Label(self.root, text="{}˚C".format(self.sensor.read_temperature()))
-        self.temperature_data.pack()
-
-    def on_scroll(self, *args):
-    # 通过yview来使文本框或列表框滚动
-        self.text_box.yview(*args)
+        self.temperature_data.pack(side=tk.TOP)
 
     def quit_command(self):
         self.root.quit()
