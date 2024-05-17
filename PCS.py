@@ -4,6 +4,7 @@ import cv2
 import random
 from DefaultSensor import DefaultSensor
 from SensorDataPlot import SensorDatatPlot
+from sensor import SensorReader
 
 UPDATE_TIME = 1000
 VIDEO_UPDATE_TIME = 10
@@ -20,7 +21,7 @@ class PCS:
         self.root.iconbitmap("plant.ico") # 設置UI圖標
 
         
-        self.sensor = DefaultSensor()
+        self.sensor = SensorReader()
 
         self.create_humidity_label()
         self.create_temperature_label()
