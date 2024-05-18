@@ -53,7 +53,7 @@ class PCS:
     def update(self):
         # 讀取輸入框的內容
         temp = self.sensor.read_temperature()
-        humi = self.sensor.read_moisture()
+        humi = self.sensor.read_humidty()
         # 將標籤的內容設置為輸入框中的內容
         self.humidity_data.config(text=str(humi)+"％RH")
         self.temperature_data.config(text=str(temp)+"˚C")
