@@ -4,6 +4,9 @@ import adafruit_dht
 import board
 from adafruit_htu21d import HTU21D
 
+import board
+from adafruit_htu21d import HTU21D
+
 class SensorReader:
     def __init__(self):
         # 初始化溫濕度感測器
@@ -29,12 +32,20 @@ class SensorReader:
         # 讀取數位光線感測器的值
         return GPIO.input(self.light_pin)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 384e3e7cdb527b71035dbaa7a81625a8c9f1a1d7
     def read_temperature(self):
         # 讀取溫度數值
         return self.sensor.temperature
     def read_humidty(self):
         # 讀取溫度數值
         return self.sensor.relative_humidity
+<<<<<<< HEAD
+=======
+
+>>>>>>> 384e3e7cdb527b71035dbaa7a81625a8c9f1a1d7
 
 class LEDController:
     def __init__(self):
@@ -49,12 +60,22 @@ class LEDController:
 
 # 創建感測器讀取器和 LED 控制器對象
 sensor_reader = SensorReader()
+<<<<<<< HEAD
 #led_controller = LEDController()
+=======
+
+#led_controller = LEDController()
+
+>>>>>>> 384e3e7cdb527b71035dbaa7a81625a8c9f1a1d7
 
 # 顯示溫度
 temperature = sensor_reader.read_temperature()
 print("Temperature:", temperature)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 384e3e7cdb527b71035dbaa7a81625a8c9f1a1d7
 # 顯示濕度
 humidty = sensor_reader.read_humidty()
 print("humidty:", humidty)
@@ -79,6 +100,10 @@ while True:
     
     # 控制 LED
     #led_controller.set_color([[255,255,51],[153,153,255],[255,255,0],[102,102,204],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]])
+<<<<<<< HEAD
+=======
+
+>>>>>>> 384e3e7cdb527b71035dbaa7a81625a8c9f1a1d7
 
     # 添加延遲以避免太頻繁地讀取
     time.sleep(1)
