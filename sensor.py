@@ -32,10 +32,6 @@ class SensorReader:
         # 讀取數位光線感測器的值
         return GPIO.input(self.light_pin)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 384e3e7cdb527b71035dbaa7a81625a8c9f1a1d7
     def read_temperature(self):
         # 讀取溫度數值
         return self.sensor.temperature
