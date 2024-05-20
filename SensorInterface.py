@@ -6,7 +6,7 @@ class SensorInterface(ABC):
         self.name = name
     
     @abstractmethod
-    def read_moisture(self):
+    def read_humidty(self):
         pass
 
     @abstractmethod

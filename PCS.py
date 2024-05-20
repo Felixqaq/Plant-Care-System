@@ -4,7 +4,7 @@ import cv2
 import random
 from DefaultSensor import DefaultSensor
 from SensorDataPlot import SensorDatatPlot
-from sensor import SensorReader
+# from sensor import SensorReader
 
 UPDATE_TIME = 1000
 VIDEO_UPDATE_TIME = 10
@@ -21,7 +21,7 @@ class PCS:
         self.root.iconbitmap("plant.ico") # 設置UI圖標
 
         
-        self.sensor = SensorReader()
+        self.sensor = DefaultSensor()
 
         self.create_humidity_label()
         self.create_temperature_label()
@@ -96,7 +96,7 @@ class PCS:
         self.humidity_image = ImageTk.PhotoImage(image)
         self.humidity_label = tk.Label(self.root, image=self.humidity_image)
         self.humidity_label.pack(side=tk.TOP)
-        self.humidity_data = tk.Label(self.root, text="{}％RH".format(self.sensor.read_moisture()))
+        self.humidity_data = tk.Label(self.root, text="{}％RH".format(self.sensor.read_humidty()))
         self.humidity_data.pack(side=tk.TOP)
 
     def create_temperature_label(self):
