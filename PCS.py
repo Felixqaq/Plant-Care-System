@@ -19,7 +19,7 @@ class PCS:
         self.root.title("植物照顧系統")
         self.root.geometry("675x600")
         self.root.resizable(True, True)
-        self.root.iconbitmap("plant.ico") # 設置UI圖標
+        self.root.iconphoto(False, tk.PhotoImage(file='plant.png'))# 設置UI圖標
 
         self.sensor = DefaultSensor()
         self.control = control()
