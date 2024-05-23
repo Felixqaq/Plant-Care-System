@@ -6,10 +6,10 @@ class DefaultSensor(SensorInterface):
         pass
 
     def read_moisture(self):
-        return random.randint(1, 100)
+        return random.randint(0, 1)
 
     def read_light(self):
-        return random.randint(1, 100)
+        return random.randint(0, 1)
 
     def read_sound(self):
         return random.randint(1, 100)

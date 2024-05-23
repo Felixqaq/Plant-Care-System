@@ -4,6 +4,7 @@ import cv2
 import random
 from DefaultSensor import DefaultSensor
 from SensorDataPlot import SensorDatatPlot
+from control import control
 # from sensor import SensorReader
 
 UPDATE_TIME = 1000
@@ -21,18 +22,18 @@ class PCS:
         self.root.iconbitmap("plant.ico") # 設置UI圖標
 
         self.sensor = DefaultSensor()
+        self.control = control()
 
         self.create_humidity_label()
         self.create_temperature_label()
         self.create_light_label()
-        self.create_menu_bar()
         self.create_moisture_label()
+        self.create_button()
+        self.create_menu_bar()
 
-        #顯示植物畫面
+        # 顯示植物畫面
         self.video_text = tk.Label(self.root, text="植物畫面")
         self.video_text.grid(row=0, column=0)
-
-        # 建立一個標籤來顯示相機畫面
         self.video_label = tk.Label(self.root)
         self.video_label.grid(row=1, column=0)
 
@@ -47,29 +48,36 @@ class PCS:
         self.update()
 
     def update(self):
-        # 讀取輸入框的內容
         temp = self.sensor.read_temperature()
         humi = self.sensor.read_moisture()
-        # 將標籤的內容設置為輸入框中的內容
         self.humidity_data.config(text=str(humi)+"％RH")
         self.temperature_data.config(text=str(temp)+"˚C")
-        self.data_plot.update_data(temp, humi)
-        self.root.after(UPDATE_TIME, self.update) #定期刷新數字
 
-    # 創建菜單欄
+        if self.sensor.read_light() == 0:
+            self.light_label.config(image=self.light_dark_image)
+        else:
+            self.light_label.config(image=self.light_bright_image)
+
+        if self.sensor.read_moisture() == 0:
+            self.moisture_label.config(image=self.moisture_dry_image)
+        else:
+            self.moisture_label.config(image=self.moisture_wet_image)
+        self.control.update()
+        self.data_plot.update_data(temp, humi)
+        self.root.after(UPDATE_TIME, self.update)#定期刷新
+
     def create_menu_bar(self):
         menubar = tk.Menu(self.root)
         self.root.config(menu=menubar)
         Mainmenu = tk.Menu(menubar, tearoff=0)  # 去除虛線
         Mainmenu.add_command(label="退出", command=self.quit_command)
         menubar.add_cascade(label="功能", menu=Mainmenu)
-
+    
     def create_img(self):
-        # 新增圖片
         img = tk.PhotoImage(file="no_web_cam.png")
         self.imgtest = tk.Label(self.root, image=img)
         self.imgtest.image = img  # 避免圖片被垃圾回收
-        self.imgtest.grid(row=3, column=0, columnspan=2)
+        self.imgtest.grid(row=1, column=0)
 
     def update_frame(self):
         ret, frame = self.cap.read() 
@@ -103,24 +111,33 @@ class PCS:
         self.temperature_data.grid(row=1, column=2)
     
     def create_light_label(self):
-        image = Image.open('temp.png').resize(IMG_SIZE)
-        self.light_image = ImageTk.PhotoImage(image)
-        self.light_label = tk.Label(self.root, image=self.temperature_image)
+        image = Image.open('bright.png').resize(IMG_SIZE)
+        self.light_bright_image = ImageTk.PhotoImage(image)
+        image = Image.open('dark.png').resize(IMG_SIZE)
+        self.light_dark_image = ImageTk.PhotoImage(image)
+        self.light_label = tk.Label(self.root, image=self.light_bright_image)
         self.light_label.grid(row=0, column=3)
 
     def create_moisture_label(self):
-        image = Image.open('temp.png').resize(IMG_SIZE)
-        self.moisture_image = ImageTk.PhotoImage(image)
-        self.moisture_label = tk.Label(self.root, image=self.temperature_image)
+        image = Image.open('wet.png').resize(IMG_SIZE)
+        self.moisture_wet_image = ImageTk.PhotoImage(image)
+        image = Image.open('dry.png').resize(IMG_SIZE)
+        self.moisture_dry_image = ImageTk.PhotoImage(image)
+        self.moisture_label = tk.Label(self.root, image=self.moisture_wet_image)
         self.moisture_label.grid(row=1, column=3)
+
+    def create_button(self):
+        self.on_button = tk.Button(self.root, text="On")
+        self.on_button.grid(row=2, column=1)
+        self.off_button = tk.Button(self.root, text="Off")
+        # self.off_button = tk.Button(self.root, text="Off", command=self.update_temperature_label)
+        self.off_button.grid(row=2, column=2)
 
     def quit_command(self):
         self.root.quit()
 
-    # 啟動應用程式
     def run(self):
         self.root.mainloop()
-
 
 if __name__ == "__main__":
     app = PCS()
