@@ -19,7 +19,7 @@ class PCS:
         self.root.title("植物照顧系統")
         self.root.geometry("675x600")
         self.root.resizable(True, True)
-        self.root.iconphoto(False, tk.PhotoImage(file='plant.png'))# 設置UI圖標
+        self.root.iconphoto(False, tk.PhotoImage(file='./image/plant.png'))# 設置UI圖標
 
         self.sensor = DefaultSensor()
         self.control = control()
@@ -74,7 +74,7 @@ class PCS:
         menubar.add_cascade(label="功能", menu=Mainmenu)
     
     def create_img(self):
-        img = tk.PhotoImage(file="no_web_cam.png")
+        img = tk.PhotoImage(file="./image/no_web_cam.png")
         self.imgtest = tk.Label(self.root, image=img)
         self.imgtest.image = img  # 避免圖片被垃圾回收
         self.imgtest.grid(row=1, column=0)
@@ -95,7 +95,7 @@ class PCS:
             return False
         
     def create_humidity_label(self):
-        image = Image.open('hum.png').resize(IMG_SIZE)
+        image = Image.open('./image/hum.png').resize(IMG_SIZE)
         self.humidity_image = ImageTk.PhotoImage(image)
         self.humidity_label = tk.Label(self.root, image=self.humidity_image)
         self.humidity_label.grid(row=0, column=1)
@@ -103,7 +103,7 @@ class PCS:
         self.humidity_data.grid(row=1, column=1)
 
     def create_temperature_label(self):
-        image = Image.open('temp.png').resize(IMG_SIZE)
+        image = Image.open('./image/temp.png').resize(IMG_SIZE)
         self.temperature_image = ImageTk.PhotoImage(image)
         self.temperature_label = tk.Label(self.root, image=self.temperature_image)
         self.temperature_label.grid(row=0, column=2)
@@ -111,17 +111,17 @@ class PCS:
         self.temperature_data.grid(row=1, column=2)
     
     def create_light_label(self):
-        image = Image.open('bright.png').resize(IMG_SIZE)
+        image = Image.open('./image/bright.png').resize(IMG_SIZE)
         self.light_bright_image = ImageTk.PhotoImage(image)
-        image = Image.open('dark.png').resize(IMG_SIZE)
+        image = Image.open('./image/dark.png').resize(IMG_SIZE)
         self.light_dark_image = ImageTk.PhotoImage(image)
         self.light_label = tk.Label(self.root, image=self.light_bright_image)
         self.light_label.grid(row=0, column=3)
 
     def create_moisture_label(self):
-        image = Image.open('wet.png').resize(IMG_SIZE)
+        image = Image.open('./image/wet.png').resize(IMG_SIZE)
         self.moisture_wet_image = ImageTk.PhotoImage(image)
-        image = Image.open('dry.png').resize(IMG_SIZE)
+        image = Image.open('./image/dry.png').resize(IMG_SIZE)
         self.moisture_dry_image = ImageTk.PhotoImage(image)
         self.moisture_label = tk.Label(self.root, image=self.moisture_wet_image)
         self.moisture_label.grid(row=1, column=3)
