@@ -6,8 +6,8 @@ from datetime import datetime
 import matplotlib.dates as mdates
 
 class SensorDatatPlot:
-    def __init__(self, master):
-        self.master = master
+    def __init__(self, root):
+        self.root = root
 
         self.temperature_data = []
         self.humidity_data = []
@@ -37,7 +37,7 @@ class SensorDatatPlot:
         self.ax_hum.xaxis.set_major_formatter(mdates.DateFormatter('%M:%S'))
         
         # 创建画布并嵌入到Tkinter窗口中
-        self.canvas = FigureCanvasTkAgg(self.fig, master=self.master)
+        self.canvas = FigureCanvasTkAgg(self.fig, master=self.root)
         self.canvas.get_tk_widget().grid(row=2, column=0)
 
 
