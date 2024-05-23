@@ -4,7 +4,7 @@ import cv2
 import random
 from DefaultSensor import DefaultSensor
 from SensorDataPlot import SensorDatatPlot
-from sensor import SensorReader
+# from sensor import SensorReader
 
 UPDATE_TIME = 1000
 VIDEO_UPDATE_TIME = 10
@@ -16,29 +16,24 @@ class PCS:
         # 創建主窗口
         self.root = tk.Tk()
         self.root.title("植物照顧系統")
-        self.root.geometry("900x1200")
+        self.root.geometry("650x900")
         self.root.resizable(True, True)
         self.root.iconbitmap("plant.ico") # 設置UI圖標
 
-        
-        self.sensor = SensorReader()
+        self.sensor = DefaultSensor()
 
         self.create_humidity_label()
         self.create_temperature_label()
-
-        # 創建一個按鈕，當按下時觸發回調函數
-        #self.button = tk.Button(self.root, text="刷新", command=self.refresh)
-        #self.button.pack()
-
+        self.create_light_label()
         self.create_menu_bar()
 
         #顯示植物畫面
         self.video_text = tk.Label(self.root, text="植物畫面")
-        self.video_text.pack()
+        self.video_text.grid(row=0, column=0)
 
         # 建立一個標籤來顯示相機畫面
         self.video_label = tk.Label(self.root)
-        self.video_label.pack()
+        self.video_label.grid(row=1, column=0)
 
         self.cap = cv2.VideoCapture(0)
 
@@ -58,7 +53,7 @@ class PCS:
         self.humidity_data.config(text=str(humi)+"％RH")
         self.temperature_data.config(text=str(temp)+"˚C")
         self.data_plot.update_data(temp, humi)
-        self.root.after(UPDATE_TIME, self.update)#定期刷新數字
+        self.root.after(UPDATE_TIME, self.update) #定期刷新數字
 
     # 創建菜單欄
     def create_menu_bar(self):
@@ -73,14 +68,13 @@ class PCS:
         img = tk.PhotoImage(file="no_web_cam.png")
         self.imgtest = tk.Label(self.root, image=img)
         self.imgtest.image = img  # 避免圖片被垃圾回收
-        self.imgtest.pack()
+        self.imgtest.grid(row=3, column=0, columnspan=2)
 
     def update_frame(self):
         ret, frame = self.cap.read() 
         if ret:
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            img = Image.fromarray(frame_rgb)
-            img.resize(VIDEO_SIZE)
+            img = Image.fromarray(frame_rgb).resize(VIDEO_SIZE)
             imgtk = ImageTk.PhotoImage(image=img)
             self.video_label.imgtk = imgtk
             self.video_label.configure(image=imgtk)
@@ -95,17 +89,29 @@ class PCS:
         image = Image.open('hum.png').resize(IMG_SIZE)
         self.humidity_image = ImageTk.PhotoImage(image)
         self.humidity_label = tk.Label(self.root, image=self.humidity_image)
-        self.humidity_label.pack(side=tk.TOP)
+        self.humidity_label.grid(row=0, column=1)
         self.humidity_data = tk.Label(self.root, text="{}％RH".format(self.sensor.read_moisture()))
-        self.humidity_data.pack(side=tk.TOP)
+        self.humidity_data.grid(row=1, column=1)
 
     def create_temperature_label(self):
         image = Image.open('temp.png').resize(IMG_SIZE)
         self.temperature_image = ImageTk.PhotoImage(image)
         self.temperature_label = tk.Label(self.root, image=self.temperature_image)
-        self.temperature_label.pack(side=tk.TOP)
+        self.temperature_label.grid(row=0, column=2)
         self.temperature_data = tk.Label(self.root, text="{}˚C".format(self.sensor.read_temperature()))
-        self.temperature_data.pack(side=tk.TOP)
+        self.temperature_data.grid(row=1, column=2)
+    
+    def create_light_label(self):
+        image = Image.open('temp.png').resize(IMG_SIZE)
+        self.light_image = ImageTk.PhotoImage(image)
+        self.light_label = tk.Label(self.root, image=self.temperature_image)
+        self.light_label.grid(row=0, column=3)
+
+    def create_light_label(self):
+        image = Image.open('temp.png').resize(IMG_SIZE)
+        self.light_image = ImageTk.PhotoImage(image)
+        self.light_label = tk.Label(self.root, image=self.temperature_image)
+        self.light_label.grid(row=1, column=3)
 
     def quit_command(self):
         self.root.quit()
