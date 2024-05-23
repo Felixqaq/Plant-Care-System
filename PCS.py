@@ -5,7 +5,7 @@ import random
 from DefaultSensor import DefaultSensor
 from SensorDataPlot import SensorDatatPlot
 from control import control
-# from sensor import SensorReader
+from sensor import SensorReader
 
 UPDATE_TIME = 1000
 VIDEO_UPDATE_TIME = 10
@@ -21,7 +21,7 @@ class PCS:
         self.root.resizable(True, True)
         self.root.iconphoto(False, tk.PhotoImage(file='./image/plant.png'))# 設置UI圖標
 
-        self.sensor = DefaultSensor()
+        self.sensor = SensorReader()
         self.control = control()
 
         self.create_humidity_label()
