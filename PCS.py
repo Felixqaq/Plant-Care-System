@@ -16,7 +16,7 @@ class PCS:
         # 創建主窗口
         self.root = tk.Tk()
         self.root.title("植物照顧系統")
-        self.root.geometry("650x900")
+        self.root.geometry("675x600")
         self.root.resizable(True, True)
         self.root.iconbitmap("plant.ico") # 設置UI圖標
 
@@ -26,6 +26,7 @@ class PCS:
         self.create_temperature_label()
         self.create_light_label()
         self.create_menu_bar()
+        self.create_moisture_label()
 
         #顯示植物畫面
         self.video_text = tk.Label(self.root, text="植物畫面")
@@ -107,11 +108,11 @@ class PCS:
         self.light_label = tk.Label(self.root, image=self.temperature_image)
         self.light_label.grid(row=0, column=3)
 
-    def create_light_label(self):
+    def create_moisture_label(self):
         image = Image.open('temp.png').resize(IMG_SIZE)
-        self.light_image = ImageTk.PhotoImage(image)
-        self.light_label = tk.Label(self.root, image=self.temperature_image)
-        self.light_label.grid(row=1, column=3)
+        self.moisture_image = ImageTk.PhotoImage(image)
+        self.moisture_label = tk.Label(self.root, image=self.temperature_image)
+        self.moisture_label.grid(row=1, column=3)
 
     def quit_command(self):
         self.root.quit()
