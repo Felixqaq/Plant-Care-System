@@ -23,24 +23,25 @@ class SensorDatatPlot:
         self.ax_temp.set_title("Temperature Monitor")
         self.ax_temp.set_ylabel("Temperature (°C)")
         self.ax_temp.grid(True)
-        self.ax_temp.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M:%S'))
+        self.ax_temp.xaxis.set_major_formatter(mdates.DateFormatter('%M:%S'))
 
         # 增加間距
-        self.fig.subplots_adjust(hspace=0.4)
+        self.fig.subplots_adjust(hspace=0.6)
 
         # 湿度子图
         self.ax_hum = self.fig.add_subplot(212)
         self.line_hum, = self.ax_hum.plot(self.humidity_data, marker='o', color='b')
         self.ax_hum.set_title("Humidity Monitor")
-        self.ax_hum.set_xlabel("Time")
         self.ax_hum.set_ylabel("Humidity (%)")
         self.ax_hum.grid(True)
-        self.ax_hum.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M:%S'))
+        self.ax_hum.xaxis.set_major_formatter(mdates.DateFormatter('%M:%S'))
         
         # 创建画布并嵌入到Tkinter窗口中
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.master)
-        self.canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=1)
-        
+        self.canvas.get_tk_widget().grid(row=2, column=0)
+
+
+
     def update_data(self, temp_value, hum_value):
         # 模拟实时数据更新
         new_time = datetime.now()

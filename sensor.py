@@ -41,35 +41,28 @@ sensor_reader = SensorReader()
 
 
 # 顯示溫度
-temperature = sensor_reader.read_temperature()
-print("Temperature:", temperature)
+# temperature = sensor_reader.read_temperature()
+# print("Temperature:", temperature)
 
-# 顯示濕度
-humidty = sensor_reader.read_humidty()
-print("humidty:", humidty)
+# # 顯示濕度
+# humidty = sensor_reader.read_humidty()
+# print("humidty:", humidty)
 
-# 進行感測器讀取並控制 LED
-while True:
+# # 進行感測器讀取
+# while True:
     
-    # 顯示溫度
-    temperature = sensor_reader.read_temperature()
-    print("Temperature:", temperature)
+#     # 顯示溫度
+#     temperature = sensor_reader.read_temperature()
+#     print("Temperature:", temperature)
 
-    # 顯示濕度
-    humidty = sensor_reader.read_humidty()
-    print("humidty:", humidty)
-    soliMoistureValue = sensor_reader.read_moisture()
-    lightValue = sensor_reader.read_light()
+#     # 顯示濕度
+#     humidty = sensor_reader.read_humidty()
+#     print("humidty:", humidty)
+#     soliMoistureValue = sensor_reader.read_moisture()
+#     lightValue = sensor_reader.read_light()
     
     
-    print('Moisture Value:', soliMoistureValue)
-    print('Light Value:', lightValue)
+#     #print('Moisture Value:', soliMoistureValue)
+#     print('Light Value:', lightValue)
     
-    # 控制LED燈開關
-    if lightValue == False :
-        GPIO.output(22,GPIO.HIGH)
-    else :
-        GPIO.output(22,GPIO.LOW)
-
-
-    time.sleep(1)
+#     time.sleep(1)
