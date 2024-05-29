@@ -101,7 +101,7 @@ class PCS:
         self.humidity_label = tk.Label(self.root, image=self.humidity_image)
         self.humidity_label.grid(row=0, column=1)
         self.humidity_data = tk.Label(self.root, text="{}％RH".format(self.sensor.read_humidty()))
-
+        self.humidity_data.grid(row=1, column=1)
 
     def create_temperature_label(self):
         image = Image.open('./image/temp.png').resize(IMG_SIZE)
@@ -128,10 +128,11 @@ class PCS:
         self.moisture_label.grid(row=1, column=3)
 
     def create_button(self):
-        self.on_button = tk.Button(self.root, text="On", command=self.control.set_angle(90))
+        self.on_button = tk.Button(self.root, text="On", command=lambda: self.control.set_angle(50))
         self.on_button.grid(row=2, column=1)
-        self.off_button = tk.Button(self.root, text="Off", command=self.control.set_angle(0))
+        self.off_button = tk.Button(self.root, text="Off", command=lambda: self.control.set_angle(0))
         self.off_button.grid(row=2, column=2)
+
 
     def quit_command(self):
         self.root.quit()

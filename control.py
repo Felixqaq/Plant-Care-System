@@ -17,23 +17,22 @@ pwm.start(0)
 class control:
     def __init__(self) :
         self.sensor = SensorReader()
+        self.set_angle(0)
     def LEDswitch(self):
         if self.sensor.read_light() == 0:            
             return GPIO.output(led_pin,GPIO.HIGH)
         else :
             return GPIO.output(led_pin,GPIO.LOW)
-    def set_angle(self,angle):
-        duty = 2 + (angle / 18)  # 將角度轉換為占空比
-        GPIO.output(servo_pin, True)
+    def set_angle(self, angle):
+        duty = 2 + (angle / 18)  # 将角度转换为占空比
         pwm.ChangeDutyCycle(duty)
-        time.sleep(1)
-        GPIO.output(servo_pin, False)
-        pwm.ChangeDutyCycle(0)
+
 
 
     def update(self):
-        self.set_angle(50)
+        #self.set_angle(50)
         self.LEDswitch()
         return
     
+
 
