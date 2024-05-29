@@ -128,10 +128,9 @@ class PCS:
         self.moisture_label.grid(row=1, column=3)
 
     def create_button(self):
-        self.on_button = tk.Button(self.root, text="On")
+        self.on_button = tk.Button(self.root, text="On", command=self.control.set_angle(90))
         self.on_button.grid(row=2, column=1)
-        self.off_button = tk.Button(self.root, text="Off")
-        # self.off_button = tk.Button(self.root, text="Off", command=self.update_temperature_label)
+        self.off_button = tk.Button(self.root, text="Off", command=self.control.set_angle(0))
         self.off_button.grid(row=2, column=2)
 
     def quit_command(self):
