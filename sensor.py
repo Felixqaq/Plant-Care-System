@@ -1,9 +1,8 @@
 import RPi.GPIO as GPIO
 import time
-import adafruit_dht
-
 import board
 from adafruit_htu21d import HTU21D
+
 
 class SensorReader:
     def __init__(self):
@@ -30,62 +29,40 @@ class SensorReader:
         # 讀取數位光線感測器的值
         return GPIO.input(self.light_pin)
 
-
     def read_temperature(self):
         # 讀取溫度數值
-        return self.sensor.temperature
+        return int(self.sensor.temperature)
     def read_humidty(self):
         # 讀取溫度數值
-        return self.sensor.relative_humidity
+        return int(self.sensor.relative_humidity)
 
-
-class LEDController:
-    def __init__(self):
-        # 初始化 LED 控制器
-        self.led_pin = 18  # GPIO 18
-        GPIO.setup(self.led_pin, GPIO.OUT)
-
-    def set_color(self, color_values):
-        # 控制 LED 顏色
-        # 這裡假設你有一個特定的方法來控制 RGB LED
-        pass
-
-# 創建感測器讀取器和 LED 控制器對象
+# 創建感測器讀取器對象
 sensor_reader = SensorReader()
-
-#led_controller = LEDController()
 
 
 # 顯示溫度
-temperature = sensor_reader.read_temperature()
-print("Temperature:", temperature)
+# temperature = sensor_reader.read_temperature()
+# print("Temperature:", temperature)
 
+# # 顯示濕度
+# humidty = sensor_reader.read_humidty()
+# print("humidty:", humidty)
 
-# 顯示濕度
-humidty = sensor_reader.read_humidty()
-print("humidty:", humidty)
-
-# 進行感測器讀取並控制 LED
-while True:
+# # 進行感測器讀取
+# while True:
     
-    # 顯示溫度
-    temperature = sensor_reader.read_temperature()
-    print("Temperature:", temperature)
+#     # 顯示溫度
+#     temperature = sensor_reader.read_temperature()
+#     print("Temperature:", temperature)
 
-    # 顯示濕度
-    humidty = sensor_reader.read_humidty()
-    print("humidty:", humidty)
-    soliMoistureValue = sensor_reader.read_moisture()
-    lightValue = sensor_reader.read_light()
-    
-    
-    print('Moisture Value:', soliMoistureValue)
-    print('Light Value:', lightValue)
+#     # 顯示濕度
+#     humidty = sensor_reader.read_humidty()
+#     print("humidty:", humidty)
+#     soliMoistureValue = sensor_reader.read_moisture()
+#     lightValue = sensor_reader.read_light()
     
     
-    # 控制 LED
-    #led_controller.set_color([[255,255,51],[153,153,255],[255,255,0],[102,102,204],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]])
-
-
-    # 添加延遲以避免太頻繁地讀取
-    time.sleep(1)
+#     #print('Moisture Value:', soliMoistureValue)
+#     print('Light Value:', lightValue)
+    
+#     time.sleep(1)
