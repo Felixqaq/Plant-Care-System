@@ -50,6 +50,7 @@ class PCS:
     def update(self):
         temp = self.sensor.read_temperature()
         humi = self.sensor.read_humidty()
+
         self.humidity_data.config(text=str(humi)+"％RH")
         self.temperature_data.config(text=str(temp)+"˚C")
 
@@ -100,7 +101,7 @@ class PCS:
         self.humidity_label = tk.Label(self.root, image=self.humidity_image)
         self.humidity_label.grid(row=0, column=1)
         self.humidity_data = tk.Label(self.root, text="{}％RH".format(self.sensor.read_humidty()))
-        self.humidity_data.grid(row=1, column=1)
+
 
     def create_temperature_label(self):
         image = Image.open('./image/temp.png').resize(IMG_SIZE)
